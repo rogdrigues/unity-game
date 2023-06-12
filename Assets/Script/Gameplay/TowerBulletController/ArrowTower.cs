@@ -19,10 +19,9 @@ public class ArrowTower : MonoBehaviour
     private float finalSpeed;
     private bool isStore;
 
-    private GameObject target;
+    public GameObject target;
     private float towerX;
     private float targetX;
-
 
     private float dist;
     private float nextX;
@@ -35,7 +34,8 @@ public class ArrowTower : MonoBehaviour
     private EnemyStatus enemyStatus;
     private int minDamage = 4;
     private int maxDamage = 6;
-    private float positionTolerance = 0.1f; 
+    private float positionTolerance = 0.1f;
+    private bool receivedNotification = false;
 
     private void Start()
     {
@@ -45,6 +45,7 @@ public class ArrowTower : MonoBehaviour
     public void Shoot()
     {
         firepower = GameObject.Find("Canvas/Manager/Firepower/ArrowProjectile");
+        
         newBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         readyToShot = true;
         if (!isStore)
@@ -59,12 +60,16 @@ public class ArrowTower : MonoBehaviour
     {
         if (readyToShot == true)
         {
-            if (target == null || !CheckTargetInRange(target))
+            if (target == null)
             {
-                target = FindNearestEnemy();
-                enemyStatus = target.GetComponent<EnemyStatus>();
+                SwitchTarget();
+                return;
             }
-            else if (target != null)
+            if (target != null && enemyStatus.health == 0 || target != null && receivedNotification)
+            {
+                SwitchTarget();
+            }
+            if (target != null)
             {
                 newBullet.transform.SetParent(firepower.transform);
                 newBullet.transform.localScale = new Vector3(4f, 4f, 1f);
@@ -143,18 +148,32 @@ public class ArrowTower : MonoBehaviour
         return nearestEnemy;
     }
 
-    private bool CheckTargetInRange(GameObject target)
+    private void OnTargetExited(GameObject exitedObject)
     {
-        bool isInRange = false;
+        if (exitedObject == target)
+        {
+            target = null;
+            receivedNotification = true;
+        }
+    }
+
+    private void OnEnable()
+    {
+        PathScript.TargetExited += OnTargetExited;
+    }
+
+    private void OnDisable()
+    {
+        PathScript.TargetExited -= OnTargetExited;
+    }
+
+    private void SwitchTarget()
+    {
+        target = FindNearestEnemy();
         if (target != null)
         {
-            Vector2 targetPosition = target.transform.position;
-
-            if (polygonCollider.OverlapPoint(targetPosition))
-            {
-                isInRange = true;
-            }
+            enemyStatus = target.GetComponent<EnemyStatus>();
         }
-        return isInRange;
+        receivedNotification = false;
     }
 }

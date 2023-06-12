@@ -18,10 +18,9 @@ public class MageTower : MonoBehaviour
     private float finalSpeed;
     private bool isStore;
 
-    private GameObject target;
+    public GameObject target;
     private float towerX;
     private float targetX;
-
 
     private float dist;
     private float nextX;
@@ -35,6 +34,7 @@ public class MageTower : MonoBehaviour
     private int minDamage = 9;
     private int maxDamage = 17;
     private float positionTolerance = 0.1f;
+    private bool receivedNotification = false;
 
     private void Start()
     {
@@ -58,13 +58,16 @@ public class MageTower : MonoBehaviour
     {
         if (readyToShot == true)
         {
-            if (target == null)
+            if (target == null || !CheckTargetInRange(target))
             {
-                target = FindNearestEnemy();
-                enemyStatus = target.GetComponent<EnemyStatus>();
+                SwitchTarget();
                 return;
             }
-            else if (target != null)
+            if (target != null && enemyStatus.health == 0 || target != null && receivedNotification)
+            {
+                SwitchTarget();
+            }
+            if (target != null)
             {
                 newBullet.transform.SetParent(firepower.transform);
                 newBullet.transform.localScale = new Vector3(4f, 4f, 1f);
@@ -143,6 +146,15 @@ public class MageTower : MonoBehaviour
         return nearestEnemy;
     }
 
+    private void OnTargetExited(GameObject exitedObject)
+    {
+        if (exitedObject == target)
+        {
+            target = null;
+            receivedNotification = true;
+        }
+    }
+
     private bool CheckTargetInRange(GameObject target)
     {
         bool isInRange = false;
@@ -156,5 +168,14 @@ public class MageTower : MonoBehaviour
             }
         }
         return isInRange;
+    }
+    private void SwitchTarget()
+    {
+        target = FindNearestEnemy();
+        if (target != null)
+        {
+            enemyStatus = target.GetComponent<EnemyStatus>();
+        }
+        receivedNotification = false;
     }
 }

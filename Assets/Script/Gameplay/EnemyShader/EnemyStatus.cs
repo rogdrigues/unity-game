@@ -22,11 +22,13 @@ public class EnemyStatus : MonoBehaviour
     private Animator animator;
     public GameObject HPBarrage;
     private Image HPBarrageFill;
+    private PathScript pathScript;
 
     private void Start()
     {
         health = maxHealth;
         animator = GetComponent<Animator>();
+        pathScript = GetComponent<PathScript>();
 
         HPBarrageFill = HPBarrage.GetComponent<Image>();
         HPBarrageFill.fillAmount = 1f;
@@ -54,8 +56,9 @@ public class EnemyStatus : MonoBehaviour
 
         if (health <= 0)
         {
-            animator.SetBool("isDead", true);
-            Destroy(gameObject, 1f);
+            pathScript.moveSpeed = 0f;
+            animator.SetTrigger("isDead");
+            Destroy(gameObject, 2f);
         }
     }
 }

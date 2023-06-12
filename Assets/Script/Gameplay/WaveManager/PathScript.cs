@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class PathScript : MonoBehaviour
     public float navTimeUpdate;
     public float currentNavTime;
     public float moveSpeed;
+    public static event Action<GameObject> TargetExited;
+    public delegate void TargetExitedHandler(GameObject exitedObject);
 
     private bool canIncreaseTargetNumber = true;
 
@@ -68,6 +71,10 @@ public class PathScript : MonoBehaviour
         if (other.CompareTag("checkpoint") || other.CompareTag("checkpoint02"))
         {
             canIncreaseTargetNumber = true;
+        }
+        if (other.CompareTag("RangeTower"))
+        {
+            TargetExited?.Invoke(gameObject);
         }
     }
 

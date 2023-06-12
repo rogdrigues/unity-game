@@ -19,6 +19,7 @@ TagManager:
   - MilitarySentines
   - MageSentines
   - Tower
+  - Inactive
   layers:
   - Default
   - TransparentFX
