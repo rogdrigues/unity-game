@@ -19,6 +19,7 @@ public class SpawnEnemies : MonoBehaviour
 
     public GameObject HPBarragePrefab;
     public GameObject HPBarragePrefabLeft;
+    public GameObject BarragePrefab;
     public float hpBarUpperWaveVerticalOffset = 1.3f;
     public float hpBarDownWaveVerticalOffset = 1.22f;
 
@@ -52,12 +53,19 @@ public class SpawnEnemies : MonoBehaviour
 
                     GameObject newHPBarrage = Instantiate(HPBarragePrefab);
                     GameObject newHPBarrageL = Instantiate(HPBarragePrefabLeft);
+                    GameObject newBarrage = Instantiate(BarragePrefab);
                     newHPBarrageL.transform.SetParent(newEnemy.transform);
                     newHPBarrage.transform.SetParent(newEnemy.transform);
+                    newBarrage.transform.SetParent(newEnemy.transform);
 
                     float verticalOffset = isUpperWave ? hpBarUpperWaveVerticalOffset : hpBarDownWaveVerticalOffset;
                     newHPBarrageL.transform.localPosition = new Vector3(0, verticalOffset, 0);
                     newHPBarrage.transform.localPosition = new Vector3(0, verticalOffset, 0.1f);
+                    newBarrage.transform.localPosition = new Vector3(0, 0, 0f);
+                    newBarrage.transform.localScale = new Vector3(1f, 1f, 1f);
+
+                    newEnemy.GetComponent<EnemyStatus>().animatorBloodEffect = newBarrage.GetComponent<Animator>();
+                    newEnemy.GetComponent<EnemyStatus>().HPBarrageLeft = newHPBarrageL;
 
                     EnemyStatus enemyStatus = newEnemy.GetComponent<EnemyStatus>();
                     if (enemyStatus != null)

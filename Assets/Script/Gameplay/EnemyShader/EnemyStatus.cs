@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class EnemyStatus : MonoBehaviour
 {
+    public Animator animatorBloodEffect;
+    public GameObject HPBarrageLeft;
     public int maxHealth;
     public int health;
 
@@ -36,6 +38,7 @@ public class EnemyStatus : MonoBehaviour
 
     public void TakeDamage(int damage, string typeDamage)
     {
+        animatorBloodEffect.Play("BloodEffect", -1, 0f); 
         if (typeDamage == "Physical")
         {
             int effectivePhysicalDamage = Mathf.Max((int)(damage * (1 - (armorRating / (armorRating + 100)))), 0);
@@ -56,6 +59,8 @@ public class EnemyStatus : MonoBehaviour
 
         if (health <= 0)
         {
+            gameObject.tag = "Inactive";
+            HPBarrageLeft.SetActive(false);
             pathScript.moveSpeed = 0f;
             animator.SetTrigger("isDead");
             Destroy(gameObject, 2f);

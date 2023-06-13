@@ -65,7 +65,7 @@ public class ArrowTower : MonoBehaviour
                 SwitchTarget();
                 return;
             }
-            if (target != null && enemyStatus.health == 0 || target != null && receivedNotification)
+            if ((target != null && enemyStatus.health == 0) || (target != null && receivedNotification))
             {
                 SwitchTarget();
             }

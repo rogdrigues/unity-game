@@ -129,10 +129,10 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
     private void HandleNonFirepowerTower(SpriteRenderer towerSpriteRenderer, Animator towerAnimator)
     {
         towerSpriteRenderer.sprite = replacedTower;
-        Vector3 newPosition = new Vector3(535.1f, 254.3f, towerSprite.transform.position.z);
+        Vector3 newPosition = new Vector3(535.1f, 254.3f, towerSprite.transform.localPosition.z);
         Quaternion newRotation = Quaternion.Euler(0f, 0f, 90f);
-        towerSprite.transform.position = newPosition;
-        towerSprite.transform.rotation = newRotation;
+        towerSprite.transform.localPosition = newPosition;
+        towerSprite.transform.localRotation = newRotation;
 
         SpriteRenderer soliderA = soliderObjectA.GetComponent<SpriteRenderer>();
         Animator Ani_soliderA = soliderObjectA.GetComponent<Animator>();
@@ -146,8 +146,8 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
             SpriteRenderer soliderB = soliderObjectB.GetComponent<SpriteRenderer>();
             Animator Ani_soliderB = soliderObjectB.GetComponent<Animator>();
             //Modifier Tower Information
-            HandleSolider(soliderA, Ani_soliderA, 534.25f, 269f, soliderA.transform.position.z - 1.0f, 0f, replacedSoliderA);
-            HandleSolider(soliderB, Ani_soliderB, 545.88f, 269f, soliderB.transform.position.z - 1.0f, 0f, replacedSoliderB);
+            HandleSolider(soliderA, Ani_soliderA, 534.25f, 269f, soliderA.transform.localPosition.z - 1.0f, 0f, replacedSoliderA);
+            HandleSolider(soliderB, Ani_soliderB, 545.88f, 269f, soliderB.transform.localPosition.z - 1.0f, 0f, replacedSoliderB);
             SetRangeAttackScale(6.3f, 4.04f);
             AddTowerComponent(soliderObjectA, TowerType.ArrowTower, 0, 300);
             AddTowerComponent(soliderObjectB, TowerType.ArrowTower, 0, 300);
@@ -156,7 +156,7 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
         else if(replacedSoliderA != null && replacedSoliderB == null)
         {
             //Modifier Tower Information
-            HandleSolider(soliderA, Ani_soliderA, 537.6f, 269.6f, soliderA.transform.position.z - 1.0f, 90f, replacedSoliderA);
+            HandleSolider(soliderA, Ani_soliderA, 537.6f, 269.6f, soliderA.transform.localPosition.z - 1.0f, 90f, replacedSoliderA);
             SetRangeAttackScale(6.3f, 4.04f);
             AddTowerComponent(soliderObjectA, TowerType.MageTower, 0, 240);
         }
@@ -205,8 +205,8 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
     {
         Vector3 soliderPosition = new Vector3(xPos, yPos, zPos);
         Quaternion soliderRotate = Quaternion.Euler(0f, 0f, zRotate);
-        soliderA.transform.position = soliderPosition;
-        soliderA.transform.rotation = soliderRotate;
+        soliderA.transform.localPosition = soliderPosition;
+        soliderA.transform.localRotation = soliderRotate;
 
         soliderA.sprite = replacedSolider.GetComponent<SpriteRenderer>().sprite;
         Ani_soliderA.runtimeAnimatorController = replacedSolider.GetComponent<Animator>().runtimeAnimatorController;
@@ -220,13 +220,13 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
         towerSpriteRenderer.sprite = firepowerSpriteRenderer.sprite;
         towerAnimator.runtimeAnimatorController = firepowerAnimator.runtimeAnimatorController;
 
-        Vector3 newPosition = new Vector3(537f, 251.4f, towerSprite.transform.position.z);
-        towerSprite.transform.position = newPosition;
+        Vector3 newPosition = new Vector3(537f, 251.4f, towerSprite.transform.localPosition.z);
+        towerSprite.transform.localPosition = newPosition;
 
         firePower.SetActive(true);
 
-        HandleSolider(soliderObjectA.GetComponent<SpriteRenderer>(), soliderObjectA.GetComponent<Animator>(), 559.2f, 253.2f, soliderObjectA.transform.position.z - 1f, 0f, replacedSoliderA);
-        HandleSolider(soliderObjectB.GetComponent<SpriteRenderer>(), soliderObjectB.GetComponent<Animator>(), 515.5f, 257.5f, soliderObjectB.transform.position.z, 0f, replacedSoliderB);
+        HandleSolider(soliderObjectA.GetComponent<SpriteRenderer>(), soliderObjectA.GetComponent<Animator>(), 559.2f, 253.2f, soliderObjectA.transform.localPosition.z - 1f, 0f, replacedSoliderA);
+        HandleSolider(soliderObjectB.GetComponent<SpriteRenderer>(), soliderObjectB.GetComponent<Animator>(), 515.5f, 257.5f, soliderObjectB.transform.localPosition.z, 0f, replacedSoliderB);
 
         towerAnimator.enabled = false;
         firepowerAnimator.enabled = false;
@@ -237,10 +237,10 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
     private void HandleMilitaryTower(SpriteRenderer towerSpriteRenderer, Animator towerAnimator)
     {
         towerSpriteRenderer.sprite = replacedTower;
-        Vector3 newPosition = new Vector3(534f, 256f, towerSpriteRenderer.transform.position.z);
+        Vector3 newPosition = new Vector3(534f, 256f, towerSpriteRenderer.transform.localPosition.z);
         Quaternion newRotation = Quaternion.Euler(0f, 0f, 90f);
-        towerSprite.transform.position = newPosition;
-        towerSprite.transform.rotation = newRotation;
+        towerSprite.transform.localPosition = newPosition;
+        towerSprite.transform.localRotation = newRotation;
         militaryDoorObject.SetActive(true);
         //Modifier Tower Information
         SetRangeAttackScale(6.46f, 4.04f);

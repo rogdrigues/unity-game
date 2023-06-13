@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a7ff36a1fa15546b8288412667678b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animatorBloodEffect: {fileID: 1865847273103350775, guid: 7758d5cd447a43a45afff56e9be0b50c, type: 3}
   maxHealth: 40
   health: 40
   minPhysicalDamage: 2
