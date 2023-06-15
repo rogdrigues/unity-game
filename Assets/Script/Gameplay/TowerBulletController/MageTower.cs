@@ -58,7 +58,7 @@ public class MageTower : MonoBehaviour
     {
         if (readyToShot == true)
         {
-            if (target == null || !CheckTargetInRange(target))
+            if (target == null)
             {
                 SwitchTarget();
                 return;
@@ -70,7 +70,7 @@ public class MageTower : MonoBehaviour
             if (target != null)
             {
                 newBullet.transform.SetParent(firepower.transform);
-                newBullet.transform.localScale = new Vector3(4f, 4f, 1f);
+                newBullet.transform.localScale = new Vector3(8f, 8f, 1f);
                 towerX = transform.position.x;
                 targetX = target.transform.position.x;
 
@@ -90,7 +90,7 @@ public class MageTower : MonoBehaviour
                 {
                     Destroy(newBullet);
                     readyToShot = false;
-                    enemyStatus.TakeDamage(Random.Range(minDamage, maxDamage), "Magic");
+                    enemyStatus.TakeDamage(Random.Range(minDamage, maxDamage), "Magic", "Mage");
                 }
             }
         }
@@ -146,6 +146,17 @@ public class MageTower : MonoBehaviour
         return nearestEnemy;
     }
 
+    private void OnEnable()
+    {
+        PathScript.TargetExited += OnTargetExited;
+    }
+
+    private void OnDisable()
+    {
+        PathScript.TargetExited -= OnTargetExited;
+    }
+
+
     private void OnTargetExited(GameObject exitedObject)
     {
         if (exitedObject == target)
@@ -155,20 +166,6 @@ public class MageTower : MonoBehaviour
         }
     }
 
-    private bool CheckTargetInRange(GameObject target)
-    {
-        bool isInRange = false;
-        if (target != null)
-        {
-            Vector2 targetPosition = target.transform.position;
-
-            if (polygonCollider.OverlapPoint(targetPosition))
-            {
-                isInRange = true;
-            }
-        }
-        return isInRange;
-    }
     private void SwitchTarget()
     {
         target = FindNearestEnemy();

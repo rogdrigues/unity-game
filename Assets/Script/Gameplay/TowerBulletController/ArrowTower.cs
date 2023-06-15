@@ -92,7 +92,7 @@ public class ArrowTower : MonoBehaviour
                 {
                     Destroy(newBullet);
                     readyToShot = false;
-                    enemyStatus.TakeDamage(Random.Range(minDamage, maxDamage), "Physical");
+                    enemyStatus.TakeDamage(Random.Range(minDamage, maxDamage), "Physical", "Arrow");
                 }
             }
         }

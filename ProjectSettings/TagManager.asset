@@ -20,6 +20,7 @@ TagManager:
   - MageSentines
   - Tower
   - Inactive
+  - ArtilleristPower
   layers:
   - Default
   - TransparentFX

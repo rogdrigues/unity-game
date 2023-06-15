@@ -179,6 +179,132 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Tower02_0
+      rect:
+        serializedVersion: 2
+        x: 1293
+        y: 677
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e063e275851d4a241aa0428e59099c17
+      internalID: 997701726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tower02_1
+      rect:
+        serializedVersion: 2
+        x: 997
+        y: 828
+        width: 47
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ebc843d21d414b4296a5e8670d6b203
+      internalID: -558105465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tower02_2
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 466
+        width: 46
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb895df7b6c2a9141bdaf938181ddb3c
+      internalID: 726121780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tower02_3
+      rect:
+        serializedVersion: 2
+        x: 1232
+        y: 1017
+        width: 28
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cbe0c58c93af2a43a82dbd3dcaac257
+      internalID: -332436732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tower02_4
+      rect:
+        serializedVersion: 2
+        x: 1938
+        y: 2
+        width: 46
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2283a07db21c3e743ad4df192e869cff
+      internalID: 545202052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tower02_5
+      rect:
+        serializedVersion: 2
+        x: 1999
+        y: 1
+        width: 47
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b4cdb812ee92874a8ea626746aba59e
+      internalID: -1169899173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -195,6 +321,12 @@ TextureImporter:
       ArrowTower_2: -1230436196
       SoliderAnimation_0: -1960713970
       SoliderAnimation_1: -1693570079
+      Tower02_0: 997701726
+      Tower02_1: -558105465
+      Tower02_2: 726121780
+      Tower02_3: -332436732
+      Tower02_4: 545202052
+      Tower02_5: -1169899173
       TowerAnimation_0: -1189781662
       TowerAnimation_1: 1200641864
       TowerAnimation_2: 1424568504

@@ -50,7 +50,8 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
     private enum TowerType
     {
         ArrowTower,
-        MageTower
+        MageTower,
+        ArtilleristTower
     }
 
     private void Start()
@@ -156,7 +157,7 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
         else if(replacedSoliderA != null && replacedSoliderB == null)
         {
             //Modifier Tower Information
-            HandleSolider(soliderA, Ani_soliderA, 537.6f, 269.6f, soliderA.transform.localPosition.z - 1.0f, 90f, replacedSoliderA);
+            HandleSolider(soliderA, Ani_soliderA, 538.45f, 270.19f, soliderA.transform.localPosition.z - 1.0f, 0f, replacedSoliderA);
             SetRangeAttackScale(6.3f, 4.04f);
             AddTowerComponent(soliderObjectA, TowerType.MageTower, 0, 240);
         }
@@ -188,6 +189,16 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
                 mageTower.bulletPrefab = bulletPrefab;
                 RangeAttack.GetComponent<TowerDetected>().SoliderA = soliderObjectA;
                 break;
+            case TowerType.ArtilleristTower:
+                var firePower = gameObject.AddComponent<ArtilleristTower>();
+                firePower.polygonCollider = RangeAttack.GetComponent<PolygonCollider2D>();
+                firePower.arcHeight = arcHeight;
+                firePower.speed = speed;
+                firePower.bulletPrefab = bulletPrefab;
+                RangeAttack.GetComponent<TowerDetected>().SoliderA = soliderObjectA;
+                RangeAttack.GetComponent<TowerDetected>().SoliderB = soliderObjectB;
+                RangeAttack.GetComponent<TowerDetected>().BarrageFirePower = gameObject;
+                break;
         }
 
     }
@@ -201,15 +212,15 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
         }
     }
 
-    private void HandleSolider(SpriteRenderer soliderA, Animator Ani_soliderA, float xPos, float yPos, float zPos, float zRotate, GameObject replacedSolider)
+    private void HandleSolider(SpriteRenderer solider, Animator Ani_solider, float xPos, float yPos, float zPos, float zRotate, GameObject replacedSolider)
     {
         Vector3 soliderPosition = new Vector3(xPos, yPos, zPos);
         Quaternion soliderRotate = Quaternion.Euler(0f, 0f, zRotate);
-        soliderA.transform.localPosition = soliderPosition;
-        soliderA.transform.localRotation = soliderRotate;
+        solider.transform.localPosition = soliderPosition;
+        solider.transform.localRotation = soliderRotate;
 
-        soliderA.sprite = replacedSolider.GetComponent<SpriteRenderer>().sprite;
-        Ani_soliderA.runtimeAnimatorController = replacedSolider.GetComponent<Animator>().runtimeAnimatorController;
+        solider.sprite = replacedSolider.GetComponent<SpriteRenderer>().sprite;
+        Ani_solider.runtimeAnimatorController = replacedSolider.GetComponent<Animator>().runtimeAnimatorController;
     }
 
     private void HandleFirepowerTower(SpriteRenderer towerSpriteRenderer, Animator towerAnimator)
@@ -232,6 +243,7 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
         firepowerAnimator.enabled = false;
         firepowerTowerBuilding.SetActive(true);
         SetRangeAttackScale(7.03f, 4.04f);
+        AddTowerComponent(firepowerTowerBuilding, TowerType.ArtilleristTower, 60, 80);
     }
 
     private void HandleMilitaryTower(SpriteRenderer towerSpriteRenderer, Animator towerAnimator)

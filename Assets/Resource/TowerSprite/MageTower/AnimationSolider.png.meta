@@ -2468,6 +2468,111 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: AnimationSolider_112
+      rect:
+        serializedVersion: 2
+        x: 1985
+        y: 2
+        width: 30
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d53d82be1a4ce664f87b0eeaddc4d582
+      internalID: 1052703382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnimationSolider_113
+      rect:
+        serializedVersion: 2
+        x: 2018
+        y: 1
+        width: 28
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83c0b82eba9aff54180f73040b95209b
+      internalID: -1068883602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnimationSolider_114
+      rect:
+        serializedVersion: 2
+        x: 2015
+        y: 43
+        width: 30
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90447ca7c2060a5499d3d3cb8bb67472
+      internalID: -1182514988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnimationSolider_115
+      rect:
+        serializedVersion: 2
+        x: 2010
+        y: 86
+        width: 35
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 565553ce3ce97ce4198b4a034f88b919
+      internalID: -1877210341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnimationSolider_116
+      rect:
+        serializedVersion: 2
+        x: 1949
+        y: 82
+        width: 28
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d61d8ad9916ff7448ed31eb927a1b18
+      internalID: -1843635051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2495,6 +2600,11 @@ TextureImporter:
       AnimationSolider_11: -1256720161
       AnimationSolider_110: -2108823882
       AnimationSolider_111: -2022332720
+      AnimationSolider_112: 1052703382
+      AnimationSolider_113: -1068883602
+      AnimationSolider_114: -1182514988
+      AnimationSolider_115: -1877210341
+      AnimationSolider_116: -1843635051
       AnimationSolider_12: -225330509
       AnimationSolider_13: 1707481882
       AnimationSolider_14: 1489404863

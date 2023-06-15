@@ -9,6 +9,7 @@ public class TowerDetected : MonoBehaviour
     public PolygonCollider2D polygonCollider;
     public float radius = 3f;
     public int numPoints = 8;
+    
 
     private bool isSoliderATurn = true;
     private bool SoliderAReady = true;
@@ -17,6 +18,7 @@ public class TowerDetected : MonoBehaviour
 
     public GameObject SoliderA;
     public GameObject SoliderB;
+    public GameObject BarrageFirePower;
 
     private void OnValidate()
     {
@@ -60,8 +62,15 @@ public class TowerDetected : MonoBehaviour
             {
                 if (!isFiring)
                 {
-                    StartCoroutine(ShootBullet(SoliderA, 1.5f, 1f));
+                    StartCoroutine(ShootBullet(SoliderA, 1.5f, 0.75f));
                     isSoliderATurn = false;
+                }
+            }
+            else if (objectTower.gameObject.tag == "ArtilleristSentines")
+            {
+                if (!isFiring)
+                {
+                    StartCoroutine(ArtilleristBullet(SoliderA, SoliderB, BarrageFirePower, 1f));
                 }
             }
         }
@@ -89,6 +98,22 @@ public class TowerDetected : MonoBehaviour
             SoliderBReady = true;
         }
 
+        isFiring = false;
+    }
+
+    private IEnumerator ArtilleristBullet(GameObject SoliderA, GameObject SoliderB, GameObject BarrageFire, float delayBetweenShots)
+    {
+        isFiring = true;
+        Animator AniSoliderA = SoliderA.GetComponent<Animator>();
+        Animator AniSoliderB = SoliderB.GetComponent<Animator>();
+        Animator AniBarrageFire = BarrageFire.GetComponent<Animator>();
+
+        AniSoliderA.SetTrigger("isShoot");
+        yield return new WaitForSeconds(delayBetweenShots);
+        AniBarrageFire.SetTrigger("BarrageFire");
+        yield return new WaitForSeconds(delayBetweenShots);
+        AniSoliderB.SetTrigger("Reload");
+        yield return new WaitForSeconds(2f);
         isFiring = false;
     }
 }

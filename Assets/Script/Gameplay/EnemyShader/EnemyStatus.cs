@@ -36,9 +36,20 @@ public class EnemyStatus : MonoBehaviour
         HPBarrageFill.fillAmount = 1f;
     }
 
-    public void TakeDamage(int damage, string typeDamage)
+    public void TakeDamage(int damage, string typeDamage, string towerName)
     {
-        animatorBloodEffect.Play("BloodEffect", -1, 0f); 
+        if(towerName == "Arrow")
+        {
+            //animatorBloodEffect.Play("BloodEffect", -1, 0f); 
+            animatorBloodEffect.SetTrigger("arrow"); 
+        }
+        else if(towerName == "Artillerist")
+        {
+
+        }else if(towerName == "Mage")
+        {
+            animatorBloodEffect.SetTrigger("mage");
+        }
         if (typeDamage == "Physical")
         {
             int effectivePhysicalDamage = Mathf.Max((int)(damage * (1 - (armorRating / (armorRating + 100)))), 0);

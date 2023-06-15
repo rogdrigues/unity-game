@@ -713,7 +713,7 @@ TextureImporter:
         width: 38
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -721,6 +721,27 @@ TextureImporter:
       bones: []
       spriteID: 75002a52d4a01554a9cc283fd3957fb8
       internalID: -1503408551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Firepower_1
+      rect:
+        serializedVersion: 2
+        x: 1998
+        y: 426
+        width: 28
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ce4e99b74f67aa4e93c94deb0a36f99
+      internalID: -148865747
       vertices: []
       indices: 
       edges: []
@@ -852,6 +873,7 @@ TextureImporter:
       ArrowTower_1: 1466470289
       ArrowTower_2: -1230436196
       Firepower_0: -1503408551
+      Firepower_1: -148865747
       Tower_0: 663826059
       Tower_1: -39046219
       Tower_2: 1593725085

@@ -374,6 +374,7 @@
 "Assets/Script/DelayedSong.cs"
 "Assets/Script/Gameplay/EnemyShader/EnemyStatus.cs"
 "Assets/Script/Gameplay/TowerBulletController/ArrowTower.cs"
+"Assets/Script/Gameplay/TowerBulletController/ArtilleristTower.cs"
 "Assets/Script/Gameplay/TowerBulletController/MageTower.cs"
 "Assets/Script/Gameplay/TowerBulletController/TowerDetected.cs"
 "Assets/Script/Gameplay/TowerSelectScript/PreviewSelectTower.cs"
