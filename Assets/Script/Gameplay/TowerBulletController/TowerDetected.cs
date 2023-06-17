@@ -71,6 +71,7 @@ public class TowerDetected : MonoBehaviour
                 if (!isFiring)
                 {
                     StartCoroutine(ArtilleristBullet(SoliderA, SoliderB, BarrageFirePower, 1f));
+                    isSoliderATurn = false;
                 }
             }
         }

@@ -21,6 +21,8 @@ TagManager:
   - Tower
   - Inactive
   - ArtilleristPower
+  - Hidden
+  - GameSystem
   layers:
   - Default
   - TransparentFX

@@ -6,11 +6,15 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Image = UnityEngine.UI.Image;
 using UnityEngine.UIElements;
+using TMPro;
 
 public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public Sprite hoverSprite;
+    public Sprite hoverBanSprite;
+    public Sprite currentSprite;
     private Sprite originalSprite;
+
     private SpriteRenderer spriteRenderer;
     private AudioSource audioSource;
 
@@ -46,6 +50,7 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
     public GameObject previewTower;
     public GameObject RangeAttack;
     public GameObject bulletPrefab;
+    public TextMeshProUGUI goldValue;
 
     private enum TowerType
     {
@@ -63,18 +68,37 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        previewTower.GetComponent<PreviewTower>().StartBuildingTower();
-        GameObject clickedObject = eventData.pointerPress;
-        previewTower.tag = clickedObject.tag + "Sentines";
-        landSprite.sprite = replacedLand;
-        SpriteRenderer towerSpriteRenderer = towerSprite.GetComponent<SpriteRenderer>();
-        towerSpriteRenderer.sprite = landTowerBuilding;
-        progressBar.SetActive(true);
-        if (towerBuildingSFX != null)
+        if (originalSprite == currentSprite)
         {
-            audioSource.PlayOneShot(towerBuildingSFX);
+            StartCoroutine(previewTower.GetComponent<PreviewTower>().DeactivateTowerPrefabWithDelay(1f));
+            // Deactivate and start building the tower
+            previewTower.GetComponent<PreviewTower>().StartBuildingTower();
+            // Get a reference to the GameSystem from the GameObject with the tag "GameSystem"
+            GameSystem gameSystem = GameObject.FindGameObjectWithTag("GameSystem").GetComponent<GameSystem>();
+
+            // Deduct the gold value
+            int goldAmount = int.Parse(goldValue.text);
+            gameSystem.SpendGold(goldAmount);
+
+            // Set the tag for the tower object
+            GameObject clickedObject = eventData.pointerPress;
+            previewTower.tag = clickedObject.tag + "Sentines";
+
+            // Change the sprite and show the progress bar
+            landSprite.sprite = replacedLand;
+            SpriteRenderer towerSpriteRenderer = towerSprite.GetComponent<SpriteRenderer>();
+            towerSpriteRenderer.sprite = landTowerBuilding;
+            progressBar.SetActive(true);
+
+            // Play sound effect
+            if (towerBuildingSFX != null)
+            {
+                audioSource.PlayOneShot(towerBuildingSFX);
+            }
+
+            // Perform the circle fill over time
+            StartCoroutine(FillCircleOverTime());
         }
-        StartCoroutine(FillCircleOverTime());
     }
 
     private IEnumerator FillCircleOverTime()
@@ -97,11 +121,6 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
         TowerBuildComplete();
     }
 
-    private IEnumerator SetActiveAfterDelay(GameObject gameObject, bool active, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        gameObject.SetActive(active);
-    }
 
     private void TowerBuildComplete()
     {
@@ -124,7 +143,6 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
         RangeAttack.GetComponent<PolygonCollider2D>().enabled = true;
         previewTower.GetComponent<PreviewTower>().FinishBuildingTower();
         cloudEffect.SetActive(true);
-        StartCoroutine(SetActiveAfterDelay(cloudEffect, false, 1f));
     }
 
     private void HandleNonFirepowerTower(SpriteRenderer towerSpriteRenderer, Animator towerAnimator)
@@ -154,7 +172,7 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
             AddTowerComponent(soliderObjectB, TowerType.ArrowTower, 0, 300);
         }
         //Mage Tower
-        else if(replacedSoliderA != null && replacedSoliderB == null)
+        else if (replacedSoliderA != null && replacedSoliderB == null)
         {
             //Modifier Tower Information
             HandleSolider(soliderA, Ani_soliderA, 538.45f, 270.19f, soliderA.transform.localPosition.z - 1.0f, 0f, replacedSoliderA);
@@ -167,7 +185,7 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
         Vector3 rangeAttackScale = new Vector3(xScale, yScale, RangeAttack.transform.localScale.z);
         RangeAttack.transform.localScale = rangeAttackScale;
     }
-    
+
     private void AddTowerComponent(GameObject gameObject, TowerType towerType, int arcHeight, int speed)
     {
         switch (towerType)
@@ -260,7 +278,14 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        spriteRenderer.sprite = hoverSprite;
+        if (originalSprite == currentSprite)
+        {
+            spriteRenderer.sprite = hoverSprite;
+        }
+        else
+        {
+            spriteRenderer.sprite = hoverBanSprite;
+        }
         tower.SetActive(true);
         if (hoverSFX != null)
         {

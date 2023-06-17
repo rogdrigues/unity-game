@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,6 +15,7 @@ public class PreviewTower : MonoBehaviour, IPointerClickHandler
     private bool hasClickedOutsideCollider = false;
     private bool isDeactivating = false;
     private bool hasClickedOnCollider = false;
+    private bool isHiding = false;
 
     public AudioClip clickSound;
     private AudioSource audioSource;
@@ -22,14 +24,31 @@ public class PreviewTower : MonoBehaviour, IPointerClickHandler
     public Animator TowerPrefabUpgradeAnimation;
 
     public GameObject[] listTowerAvailable;
+    public GameObject[] icon;
+    public TextMeshProUGUI[] costText;
+
+    public Sprite ArrowReplaced;
+    public Sprite ArtilleristReplaced;
+    public Sprite MageReplaced;
+    public Sprite MilitaryReplaced;
+
+    public Sprite ArrowSprite;
+    public Sprite ArtillerisSprite;
+    public Sprite MageSprite;
+    public Sprite MilitarySprite;
+
+    private GameSystem gameSystem;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        gameSystem = GameObject.FindGameObjectWithTag("GameSystem").GetComponent<GameSystem>();
+        Sprite arrowSprite = Array.Find(icon, element => element.tag == "Arrow")?.GetComponent<SpriteRenderer>().sprite;
     }
 
     private void Update()
     {
+
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
@@ -40,10 +59,12 @@ public class PreviewTower : MonoBehaviour, IPointerClickHandler
 
                 if (clickedObjectTag == "Arrow" || clickedObjectTag == "Mage" || clickedObjectTag == "Military" || clickedObjectTag == "Artillerist")
                 {
+                    isHiding = true;
                     isBuildingTower = true;
                 }
                 else
                 {
+                    isHiding = false;
                     isBuildingTower = false;
                 }
             }
@@ -51,21 +72,52 @@ public class PreviewTower : MonoBehaviour, IPointerClickHandler
 
         if (isTowerPrefabActive && Input.GetMouseButtonDown(0) && !isMouseClickOnCollider && hasClickedOutsideCollider && !isDeactivating && !hasClickedOnCollider)
         {
-            StartCoroutine(DeactivateTowerPrefabWithDelay(isBuildingTower ? 1f : 0.45f));
-            hasClickedOutsideCollider = false;
+            if(isHiding == false)
+            {
+                StartCoroutine(DeactivateTowerPrefabWithDelay(isBuildingTower ? 1f : 0.45f));
+                hasClickedOutsideCollider = false;
+            }
         }
 
         isMouseClickOnCollider = false;
         hasClickedOnCollider = false;
-
         if (Input.GetMouseButtonDown(0) && !IsMouseOverTowerPrefab())
         {
             hasClickedOutsideCollider = true;
         }
     }
 
+    private void updatePriceTower()
+    {
+        for (int i = 0; i < icon.Length; i++)
+        {
+            int cost = int.Parse(costText[i].text);
+            string towerTag = icon[i].tag;
+
+            if (icon[i].CompareTag(costText[i].tag))
+            {
+                if (gameSystem.goldValue < cost)
+                {
+                    Sprite replacedSprite = GetReplacedSprite(towerTag);
+                    icon[i].GetComponent<SpriteRenderer>().sprite = replacedSprite;
+                    costText[i].color = Color.gray;
+                }
+                else
+                {
+                    Sprite defaultSprite = GetDefaultSprite(towerTag);
+                    icon[i].GetComponent<SpriteRenderer>().sprite = defaultSprite;
+                    costText[i].color = Color.yellow;
+                }
+            }
+        }
+    }
+
+
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log("Click");
+        Debug.Log(isBuildingTower);
+        Debug.Log(isDeactivating);
         if (!isBuildingTower)
         {
             if (!isDeactivating)
@@ -92,6 +144,7 @@ public class PreviewTower : MonoBehaviour, IPointerClickHandler
     {
         if (gameObject.CompareTag("Empty"))
         {
+            updatePriceTower();
             TowerPrefab.SetActive(true);
         }
         else
@@ -109,7 +162,41 @@ public class PreviewTower : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private IEnumerator DeactivateTowerPrefabWithDelay(float delay)
+    private Sprite GetReplacedSprite(string towerTag)
+    {
+        switch (towerTag)
+        {
+            case "Arrow":
+                return ArrowReplaced;
+            case "Artillerist":
+                return ArtilleristReplaced;
+            case "Mage":
+                return MageReplaced;
+            case "Military":
+                return MilitaryReplaced;
+            default:
+                return null;
+        }
+    }
+
+    private Sprite GetDefaultSprite(string towerTag)
+    {
+        switch (towerTag)
+        {
+            case "Arrow":
+                return ArrowSprite;
+            case "Artillerist":
+                return ArtillerisSprite;
+            case "Mage":
+                return MageSprite;
+            case "Military":
+                return MilitarySprite;
+            default:
+                return null;
+        }
+    }
+
+    public IEnumerator DeactivateTowerPrefabWithDelay(float delay)
     {
         isDeactivating = true;
 
@@ -122,9 +209,7 @@ public class PreviewTower : MonoBehaviour, IPointerClickHandler
             {
                 TowerPrefab.SetActive(false);
             }
-        }
-
-        if (TowerPrefabUpgrade != null && !gameObject.CompareTag("Empty"))
+        }else if (TowerPrefabUpgrade != null && !gameObject.CompareTag("Empty"))
         {
             TowerPrefabUpgradeAnimation.SetBool("isClosed", true);
             yield return new WaitForSeconds(delay);

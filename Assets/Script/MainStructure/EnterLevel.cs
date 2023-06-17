@@ -32,6 +32,7 @@ public class EnterLevel : MonoBehaviour
         audioButtonGUI.PlayOneShot(audioEnterLevel);
         spriteBG.gameObject.SetActive(true);
         PlayerPrefs.SetInt("shouldApplyFade", 1);
+        audioManager = FindObjectOfType<AudioManager>();
         audioManager.sceneManager(sceneNumber);
     }
 }

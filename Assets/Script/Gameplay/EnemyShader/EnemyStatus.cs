@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class EnemyStatus : MonoBehaviour
 {
-    public Animator animatorBloodEffect;
+    public GameObject bloodEffect;
     public GameObject HPBarrageLeft;
     public int maxHealth;
     public int health;
+    public GameObject HPBarrage;
 
     public int minPhysicalDamage;
     public int maxPhysicalDamage;
@@ -22,31 +24,37 @@ public class EnemyStatus : MonoBehaviour
     public int bounty;
 
     private Animator animator;
-    public GameObject HPBarrage;
     private Image HPBarrageFill;
     private PathScript pathScript;
-
+    private Animator animatorBloodEffect;
+    private GameSystem gameSystem;
     private void Start()
     {
         health = maxHealth;
         animator = GetComponent<Animator>();
         pathScript = GetComponent<PathScript>();
+        animatorBloodEffect = bloodEffect.GetComponent<Animator>();
 
         HPBarrageFill = HPBarrage.GetComponent<Image>();
         HPBarrageFill.fillAmount = 1f;
+        gameSystem = GameObject.FindGameObjectWithTag("GameSystem").GetComponent<GameSystem>();
     }
 
-    public void TakeDamage(int damage, string typeDamage, string towerName)
+    public void TakeDamage(int damage, string typeDamage, string towerName, GameObject target, float multipleDamage)
     {
+         
         if(towerName == "Arrow")
         {
-            //animatorBloodEffect.Play("BloodEffect", -1, 0f); 
             animatorBloodEffect.SetTrigger("arrow"); 
         }
         else if(towerName == "Artillerist")
         {
-
-        }else if(towerName == "Mage")
+            if(target == gameObject && multipleDamage == 1)
+            {
+                createSavePoint(target);
+            }
+        }
+        else if(towerName == "Mage")
         {
             animatorBloodEffect.SetTrigger("mage");
         }
@@ -70,11 +78,23 @@ public class EnemyStatus : MonoBehaviour
 
         if (health <= 0)
         {
+            gameSystem.EarnGold(bounty);
             gameObject.tag = "Inactive";
             HPBarrageLeft.SetActive(false);
             pathScript.moveSpeed = 0f;
             animator.SetTrigger("isDead");
             Destroy(gameObject, 2f);
         }
+    }
+
+    private void createSavePoint(GameObject target)
+    {
+        GameObject savePoint = GameObject.Find("Canvas/Manager/Firepower/HiddenProjectile");
+        GameObject hippePoint = Instantiate(bloodEffect, target.transform.position, Quaternion.identity);
+
+        hippePoint.transform.SetParent(savePoint.transform);
+        hippePoint.GetComponent<Animator>().SetTrigger("arti");
+
+        Destroy(hippePoint, 2f);
     }
 }

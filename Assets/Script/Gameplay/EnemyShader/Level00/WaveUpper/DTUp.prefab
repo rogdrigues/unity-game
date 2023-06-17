@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7498938494843496962}
   - component: {fileID: 7498938494843496963}
   - component: {fileID: 1514140290622748412}
-  - component: {fileID: -8186480516343450610}
+  - component: {fileID: 4281673724828504302}
   m_Layer: 15
   m_Name: DTUp
   m_TagString: Enemy
@@ -175,8 +175,8 @@ MonoBehaviour:
   exitPoint: {fileID: 4579807521702072228, guid: 48b6cef87f6719e4da3538a058631ee0, type: 3}
   navTimeUpdate: 0
   currentNavTime: 0
-  moveSpeed: 12
---- !u!114 &-8186480516343450610
+  moveSpeed: 0
+--- !u!114 &4281673724828504302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,9 +188,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a7ff36a1fa15546b8288412667678b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatorBloodEffect: {fileID: 1865847273103350775, guid: 7758d5cd447a43a45afff56e9be0b50c, type: 3}
+  bloodEffect: {fileID: 0}
+  HPBarrageLeft: {fileID: 0}
   maxHealth: 40
   health: 40
+  HPBarrage: {fileID: 2540407485778163387, guid: b31b0dacb05c5da4eb3a2f81db495a4f, type: 3}
   minPhysicalDamage: 2
   maxPhysicalDamage: 6
   attackRate: 1
@@ -198,4 +200,3 @@ MonoBehaviour:
   magicResistance: 0
   livesTaken: 1
   bounty: 5
-  HPBarrage: {fileID: 2540407485778163387, guid: b31b0dacb05c5da4eb3a2f81db495a4f, type: 3}

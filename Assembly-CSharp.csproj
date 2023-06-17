@@ -61,7 +61,6 @@
     <Compile Include="Assets\Script\Gameplay\TowerBulletController\MageTower.cs" />
     <Compile Include="Assets\Script\MainMenuScript\MainMenu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
-    <Compile Include="Assets\ArrowTest.cs" />
     <Compile Include="Assets\Script\Gameplay\TowerBulletController\ArrowTower.cs" />
     <Compile Include="Assets\Script\Gameplay\WaveManager\StartingGame.cs" />
     <Compile Include="Assets\Script\MainStructure\ButtonTrigger.cs" />
@@ -70,6 +69,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Script\Gameplay\TowerBulletController\ArtilleristTower.cs" />
+    <Compile Include="Assets\Script\BuildingEffect.cs" />
     <Compile Include="Assets\Script\Gameplay\WaveManager\WaveDetail.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\Script\AudioManager.cs" />
@@ -102,6 +102,7 @@
     <Compile Include="Assets\Script\MainMenuScript\AnimationFadeIn.cs" />
     <Compile Include="Assets\Script\MainMenuScript\textCursor.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
+    <Compile Include="Assets\Script\Gameplay\WaveManager\SystemController\GameSystem.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Script\Gameplay\WaveManager\StaringWave.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Script\Gameplay\TowerSelectScript\PreviewSelectTower.cs" />
     <Compile Include="Assets\Script\Gameplay\EnemyShader\EnemyStatus.cs" />
+    <Compile Include="Assets\Script\ImageMaskInteraction.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
   </ItemGroup>
   <ItemGroup>

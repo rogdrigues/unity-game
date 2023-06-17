@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class SpawnEnemies : MonoBehaviour
@@ -47,10 +48,12 @@ public class SpawnEnemies : MonoBehaviour
             {
                 if (spawnedEnemies < numberOfEnemies && enemiesOnScreen < maxEnemiesOnWave)
                 {
-                    GameObject newEnemy = Instantiate(enemies[Random.Range(0, enemies.Length)] as GameObject);
-                    newEnemy.transform.position = new Vector3(spawnPoint.transform.position.x, spawnPoint.transform.position.y, 0f);
+                    GameObject enemyPrefab = enemies[Random.Range(0, enemies.Length)] as GameObject;
+                    GameObject newEnemy = PrefabUtility.InstantiatePrefab(enemyPrefab) as GameObject;
+                    Vector3 newEnemyPos = new Vector3(spawnPoint.transform.position.x, spawnPoint.transform.position.y, 0f);
+                    newEnemy.transform.position = newEnemyPos;
                     newEnemy.transform.SetParent(enemiesParent.transform);
-
+                    
                     GameObject newHPBarrage = Instantiate(HPBarragePrefab);
                     GameObject newHPBarrageL = Instantiate(HPBarragePrefabLeft);
                     GameObject newBarrage = Instantiate(BarragePrefab);
@@ -64,7 +67,7 @@ public class SpawnEnemies : MonoBehaviour
                     newBarrage.transform.localPosition = new Vector3(0, 0, 0f);
                     newBarrage.transform.localScale = new Vector3(1f, 1f, 1f);
 
-                    newEnemy.GetComponent<EnemyStatus>().animatorBloodEffect = newBarrage.GetComponent<Animator>();
+                    newEnemy.GetComponent<EnemyStatus>().bloodEffect = newBarrage.gameObject;
                     newEnemy.GetComponent<EnemyStatus>().HPBarrageLeft = newHPBarrageL;
 
                     EnemyStatus enemyStatus = newEnemy.GetComponent<EnemyStatus>();
@@ -74,6 +77,7 @@ public class SpawnEnemies : MonoBehaviour
                     }
                     enemiesOnScreen++;
                     spawnedEnemies++;
+                    newEnemy.transform.localPosition = newEnemyPos;
                 }
             }
 

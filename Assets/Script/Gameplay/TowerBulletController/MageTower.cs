@@ -90,7 +90,7 @@ public class MageTower : MonoBehaviour
                 {
                     Destroy(newBullet);
                     readyToShot = false;
-                    enemyStatus.TakeDamage(Random.Range(minDamage, maxDamage), "Magic", "Mage");
+                    enemyStatus.TakeDamage(Random.Range(minDamage, maxDamage), "Magic", "Mage", target, 0f);
                 }
             }
         }

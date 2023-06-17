@@ -15,13 +15,17 @@ public class PathScript : MonoBehaviour
     public float moveSpeed;
     public static event Action<GameObject> TargetExited;
     public delegate void TargetExitedHandler(GameObject exitedObject);
-
+    private GameSystem gameSystem;
+    private EnemyStatus enemyStatus;
     private bool canIncreaseTargetNumber = true;
+    private bool alreadyReachToEndPoint = false;
 
     private void Start()
     {
         target = GetComponent<Transform>();
         animator = GetComponent<Animator>();
+        gameSystem = GameObject.FindGameObjectWithTag("GameSystem").GetComponent<GameSystem>();
+        enemyStatus = GetComponent<EnemyStatus>();
     }
 
     private void Update()
@@ -41,8 +45,20 @@ public class PathScript : MonoBehaviour
                     target.position = Vector2.MoveTowards(target.position, exitPoint.position, currentNavTime);
                 }
                 currentNavTime = 0;
+
+                if (Vector2.Distance(target.position, exitPoint.position) < 0.1f && !alreadyReachToEndPoint)
+                {
+                    alreadyReachToEndPoint = true;
+                    EnemyReachedDestination();
+                }
             }
         }
+    }
+
+    private void EnemyReachedDestination()
+    {
+        gameSystem.LoseLife(enemyStatus.livesTaken);
+        Destroy(gameObject, 0.5f);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
