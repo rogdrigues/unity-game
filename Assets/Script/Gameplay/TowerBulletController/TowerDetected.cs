@@ -114,7 +114,8 @@ public class TowerDetected : MonoBehaviour
         AniBarrageFire.SetTrigger("BarrageFire");
         yield return new WaitForSeconds(delayBetweenShots);
         AniSoliderB.SetTrigger("Reload");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
+
         isFiring = false;
     }
 }

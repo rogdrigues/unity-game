@@ -93,6 +93,8 @@ public class EnemyStatus : MonoBehaviour
         GameObject hippePoint = Instantiate(bloodEffect, target.transform.position, Quaternion.identity);
 
         hippePoint.transform.SetParent(savePoint.transform);
+        hippePoint.transform.localPosition = new Vector3(target.transform.position.x, target.transform.position.y + 15f, target.transform.position.z);
+        hippePoint.transform.localScale = new Vector3(45f, 45f, 1f);
         hippePoint.GetComponent<Animator>().SetTrigger("arti");
 
         Destroy(hippePoint, 2f);

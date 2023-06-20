@@ -37,6 +37,7 @@ public class ArtilleristTower : MonoBehaviour
     private float positionTolerance = 0.1f;
     private float aoeRadius = 15f;
     private bool receivedNotification = false;
+    private bool bulletReachTarget = false;
 
     private void Start()
     {
@@ -67,7 +68,10 @@ public class ArtilleristTower : MonoBehaviour
             }
             if (target != null && enemyStatus.health == 0 || target != null && receivedNotification)
             {
+                if (bulletReachTarget)
+                {
                 SwitchTarget();
+                }
             }
             if (target != null)
             {
@@ -85,15 +89,17 @@ public class ArtilleristTower : MonoBehaviour
 
 
 
-                Vector3 movePos = new Vector3(nextX, baseY + height, newBullet.transform.position.z);
+                Vector3 movePos = new Vector3(nextX, baseY + height, 0f);
                 newBullet.transform.rotation = RotateContinuously();
                 newBullet.transform.position = movePos;
+                newBullet.transform.localPosition = movePos;
                 Vector2 positionDifference = (Vector2)newBullet.transform.position - (Vector2)target.transform.position;
                 if (positionDifference.magnitude <= positionTolerance)
                 {
                     ApplyAOE(newBullet.transform.position, aoeRadius, target);
                     Destroy(newBullet);
                     readyToShot = false;
+                    bulletReachTarget = true;
                 }
             }
         }
@@ -110,14 +116,14 @@ public class ArtilleristTower : MonoBehaviour
         float[][] thresholds = new float[][]
         {
             new float[] { 60f, finalSpeed, finalArcHeight },
-            new float[] { 50f, finalSpeed - 10f, finalArcHeight }, //ArcHeight = 60
-            new float[] { 30f, finalSpeed - 20f, finalArcHeight }, //FinalSpeed = 80
-            new float[] { 15f, finalSpeed - 30f, finalArcHeight },
-            new float[] { 10f, finalSpeed - 35f, finalArcHeight },
-            new float[] { 7f, finalSpeed - 40f, finalArcHeight },
-            new float[] { 5f, finalSpeed - 45f, finalArcHeight },
-            new float[] { 3f, finalSpeed - 50f, finalArcHeight },
-            new float[] { 0f, finalSpeed - 55f, finalArcHeight }
+            new float[] { 50f, finalSpeed - 20f, finalArcHeight }, //ArcHeight = 60
+            new float[] { 30f, finalSpeed - 30f, finalArcHeight }, //FinalSpeed = 80
+            new float[] { 15f, finalSpeed - 40f, finalArcHeight },
+            new float[] { 10f, finalSpeed - 55f, finalArcHeight },
+            new float[] { 7f, finalSpeed - 55f, finalArcHeight },
+            new float[] { 5f, finalSpeed - 60f, finalArcHeight },
+            new float[] { 3f, finalSpeed - 65f, finalArcHeight },
+            new float[] { 0f, finalSpeed - 70f, finalArcHeight }
         };
 
         foreach (float[] threshold in thresholds)
@@ -176,7 +182,6 @@ public class ArtilleristTower : MonoBehaviour
         if (target != null)
         {
             enemyStatus = target.GetComponent<EnemyStatus>();
-            newBullet.AddComponent<Animator>().runtimeAnimatorController = target.GetComponent<Animator>().runtimeAnimatorController;
         }
         receivedNotification = false;
     }
@@ -192,7 +197,7 @@ public class ArtilleristTower : MonoBehaviour
                 EnemyStatus enemy = collider.GetComponent<EnemyStatus>();
                 if (enemy != null)
                 {
-                    float damageMultiplier = target == collider.gameObject ? 1f : 0.25f;
+                    float damageMultiplier = target == collider.gameObject ? 1f : Random.Range(0.5f,0.75f);
                     int damage = (int)(Random.Range(minDamage, maxDamage) * damageMultiplier);
                     enemy.TakeDamage(damage, "Physical", "Artillerist", target, damageMultiplier);
                 }

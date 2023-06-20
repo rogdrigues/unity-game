@@ -175,7 +175,7 @@ MonoBehaviour:
   exitPoint: {fileID: 4579807521702072228, guid: 48b6cef87f6719e4da3538a058631ee0, type: 3}
   navTimeUpdate: 0
   currentNavTime: 0
-  moveSpeed: 0
+  moveSpeed: 14
 --- !u!114 &4281673724828504302
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -59,6 +59,12 @@ public class GameSystem : MonoBehaviour
         UpdateGoldText();
     }
 
+    public void IncreaseWave()
+    {
+        waveCurrent++; 
+        UpdateWavesText();
+    }
+
     public void LoseLife(int amount)
     {
         liveValue -= amount;

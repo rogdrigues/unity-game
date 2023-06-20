@@ -23,6 +23,7 @@ TagManager:
   - ArtilleristPower
   - Hidden
   - GameSystem
+  - Wave
   layers:
   - Default
   - TransparentFX

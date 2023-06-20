@@ -33,20 +33,21 @@ public class PathScript : MonoBehaviour
         if (checkpoints != null)
         {
             currentNavTime += Time.deltaTime * moveSpeed;
-
+            
             if (currentNavTime > navTimeUpdate)
             {
                 if (targetNumber < checkpoints.Length)
                 {
-                    target.position = Vector2.MoveTowards(target.position, checkpoints[targetNumber].position, currentNavTime);
+                    target.localPosition = Vector2.MoveTowards(target.localPosition, checkpoints[targetNumber].localPosition, currentNavTime);
+                   
                 }
                 else
                 {
-                    target.position = Vector2.MoveTowards(target.position, exitPoint.position, currentNavTime);
+                    target.localPosition = Vector2.MoveTowards(target.localPosition, exitPoint.localPosition, currentNavTime);
                 }
                 currentNavTime = 0;
 
-                if (Vector2.Distance(target.position, exitPoint.position) < 0.1f && !alreadyReachToEndPoint)
+                if (Vector2.Distance(target.localPosition, exitPoint.localPosition) < 0.1f && !alreadyReachToEndPoint)
                 {
                     alreadyReachToEndPoint = true;
                     EnemyReachedDestination();

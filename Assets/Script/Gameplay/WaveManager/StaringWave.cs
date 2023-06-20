@@ -18,8 +18,12 @@ public class StaringWave : MonoBehaviour
     private bool isFading = false;
     private Color transparentColor = new Color(1f, 1f, 1f, 0f);
     public StaringWave[] staringWaves;
+    private GameSystem gameSystem;
 
-
+    private void Start()
+    {
+        gameSystem = GameObject.FindGameObjectWithTag("GameSystem").GetComponent<GameSystem>();
+    }
     public void OnPointerHover()
     {
         if (!isDescriptionPanelActive && !isFading)
@@ -34,8 +38,8 @@ public class StaringWave : MonoBehaviour
         {
             if (audioSourceClick != null)
             {
-                audioSourceClick.Play(); 
-
+                audioSourceClick.Play();
+                gameSystem.IncreaseWave();
                 if (audioSource != null && !audioSource.isPlaying)
                 {
                     StartCoroutine(PlayDelayedAudioCoroutine());
@@ -89,7 +93,6 @@ public class StaringWave : MonoBehaviour
                 }
             }
         }
-
         spawnEnemies.SetActive(true);
     }
 

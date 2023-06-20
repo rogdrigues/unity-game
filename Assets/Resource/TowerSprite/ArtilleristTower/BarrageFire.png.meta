@@ -120,10 +120,10 @@ TextureImporter:
       name: BarrageFire_0
       rect:
         serializedVersion: 2
-        x: 75
-        y: 1909
-        width: 73
-        height: 76
+        x: 60
+        y: 1899
+        width: 103
+        height: 139
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -351,10 +351,10 @@ TextureImporter:
       name: BarrageFire_11
       rect:
         serializedVersion: 2
-        x: 726
-        y: 1703
-        width: 119
-        height: 141
+        x: 736
+        y: 1707
+        width: 104
+        height: 139
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -456,12 +456,12 @@ TextureImporter:
       name: BarrageFire_16
       rect:
         serializedVersion: 2
-        x: 76
-        y: 1723
-        width: 81
-        height: 121
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 62
+        y: 1711
+        width: 104
+        height: 138
+      alignment: 9
+      pivot: {x: 0.5004874, y: 0.47248173}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -498,9 +498,9 @@ TextureImporter:
       name: BarrageFire_18
       rect:
         serializedVersion: 2
-        x: 543
-        y: 1701
-        width: 111
+        x: 546
+        y: 1704
+        width: 104
         height: 139
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -519,9 +519,9 @@ TextureImporter:
       name: BarrageFire_19
       rect:
         serializedVersion: 2
-        x: 920
-        y: 1707
-        width: 115
+        x: 922
+        y: 1699
+        width: 105
         height: 139
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -540,9 +540,9 @@ TextureImporter:
       name: BarrageFire_20
       rect:
         serializedVersion: 2
-        x: 1061
-        y: 1707
-        width: 114
+        x: 1065
+        y: 1703
+        width: 104
         height: 139
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -566,7 +566,7 @@ TextureImporter:
         width: 119
         height: 137
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

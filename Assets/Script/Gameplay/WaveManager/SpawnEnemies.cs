@@ -23,6 +23,7 @@ public class SpawnEnemies : MonoBehaviour
     public GameObject BarragePrefab;
     public float hpBarUpperWaveVerticalOffset = 1.3f;
     public float hpBarDownWaveVerticalOffset = 1.22f;
+    public GameObject Wave;
 
     private void Awake()
     {
@@ -39,10 +40,11 @@ public class SpawnEnemies : MonoBehaviour
     {
         int spawnedEnemies = 0;
         GameObject enemiesParent = GameObject.Find("Canvas/Manager/Enemies");
+        float waveWaitingTime = isUpperWave ? waitingTime *1.25f : waitingTime * 1.5f;
 
         while (spawnedEnemies < numberOfEnemies)
         {
-            yield return new WaitForSeconds(waitingTime);
+            yield return new WaitForSeconds(waveWaitingTime);
 
             for (int i = 0; i < enemiesPerSpawn; i++)
             {
@@ -51,7 +53,6 @@ public class SpawnEnemies : MonoBehaviour
                     GameObject enemyPrefab = enemies[Random.Range(0, enemies.Length)] as GameObject;
                     GameObject newEnemy = PrefabUtility.InstantiatePrefab(enemyPrefab) as GameObject;
                     Vector3 newEnemyPos = new Vector3(spawnPoint.transform.position.x, spawnPoint.transform.position.y, 0f);
-                    newEnemy.transform.position = newEnemyPos;
                     newEnemy.transform.SetParent(enemiesParent.transform);
                     
                     GameObject newHPBarrage = Instantiate(HPBarragePrefab);
@@ -77,12 +78,19 @@ public class SpawnEnemies : MonoBehaviour
                     }
                     enemiesOnScreen++;
                     spawnedEnemies++;
+                    newEnemy.transform.position = newEnemyPos;
                     newEnemy.transform.localPosition = newEnemyPos;
+                    Debug.Log(newEnemy.transform.localPosition);
+                    Debug.Log(newEnemy.transform.position);
                 }
             }
 
             if (spawnedEnemies >= numberOfEnemies || enemiesOnScreen >= totalEnemies)
             {
+                if(enemiesOnScreen == totalEnemies)
+                {
+                    Wave.SetActive(false);
+                }
                 break;
             }
         }
