@@ -80,8 +80,6 @@ public class SpawnEnemies : MonoBehaviour
                     spawnedEnemies++;
                     newEnemy.transform.position = newEnemyPos;
                     newEnemy.transform.localPosition = newEnemyPos;
-                    Debug.Log(newEnemy.transform.localPosition);
-                    Debug.Log(newEnemy.transform.position);
                 }
             }
 

@@ -143,6 +143,7 @@ public class PreviewSelectTower : MonoBehaviour, IPointerEnterHandler, IPointerE
         RangeAttack.GetComponent<PolygonCollider2D>().enabled = true;
         previewTower.GetComponent<PreviewTower>().FinishBuildingTower();
         cloudEffect.SetActive(true);
+        fillCircle.fillAmount = 0;
     }
 
     private void HandleNonFirepowerTower(SpriteRenderer towerSpriteRenderer, Animator towerAnimator)

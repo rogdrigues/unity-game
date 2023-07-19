@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class AnimationFadeIn : MonoBehaviour
 {
+    //Serialize = public
     public RawImage rawImage;
     public bool verification;
     private void Start()
@@ -14,7 +15,7 @@ public class AnimationFadeIn : MonoBehaviour
             rawImage.gameObject.SetActive(false);
         }
     }
-
+    
     public void OnFadeIn()
     {
         rawImage.gameObject.SetActive(false);

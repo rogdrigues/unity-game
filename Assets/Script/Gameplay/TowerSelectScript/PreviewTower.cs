@@ -115,9 +115,6 @@ public class PreviewTower : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Click");
-        Debug.Log(isBuildingTower);
-        Debug.Log(isDeactivating);
         if (!isBuildingTower)
         {
             if (!isDeactivating)

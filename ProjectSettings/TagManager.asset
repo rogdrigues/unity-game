@@ -24,6 +24,11 @@ TagManager:
   - Hidden
   - GameSystem
   - Wave
+  - SkipCloseRight
+  - SkipCloseLeft
+  - WaveSkip
+  - SkillLeft
+  - SkillRight
   layers:
   - Default
   - TransparentFX

@@ -119,9 +119,9 @@ public class ArtilleristTower : MonoBehaviour
             new float[] { 50f, finalSpeed - 20f, finalArcHeight }, //ArcHeight = 60
             new float[] { 30f, finalSpeed - 30f, finalArcHeight }, //FinalSpeed = 80
             new float[] { 15f, finalSpeed - 40f, finalArcHeight },
-            new float[] { 10f, finalSpeed - 55f, finalArcHeight },
-            new float[] { 7f, finalSpeed - 55f, finalArcHeight },
-            new float[] { 5f, finalSpeed - 60f, finalArcHeight },
+            new float[] { 10f, finalSpeed - 60f, finalArcHeight },
+            new float[] { 7f, finalSpeed - 60f, finalArcHeight },
+            new float[] { 5f, finalSpeed - 65f, finalArcHeight },
             new float[] { 3f, finalSpeed - 65f, finalArcHeight },
             new float[] { 0f, finalSpeed - 70f, finalArcHeight }
         };

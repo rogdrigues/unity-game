@@ -11,18 +11,24 @@ public class StaringWave : MonoBehaviour
     public GameObject descriptionPanel;
     public GameObject spawnEnemies;
     public WaveFade waveFade;
+    private float fillDuration = 20f;
 
     public AudioSource audioSource;
     public AudioSource audioSourceClick;
     private bool isDescriptionPanelActive = false;
     private bool isFading = false;
     private Color transparentColor = new Color(1f, 1f, 1f, 0f);
-    public StaringWave[] staringWaves;
     private GameSystem gameSystem;
-
+    private GameObject[] waveSkipArray;
+    private bool hasPlayedAudio1 = false;
+    public bool allowToRun;
     private void Start()
     {
         gameSystem = GameObject.FindGameObjectWithTag("GameSystem").GetComponent<GameSystem>();
+        if(allowToRun)
+        {
+            StartCoroutine(FillCircleOverTime());
+        }
     }
     public void OnPointerHover()
     {
@@ -43,7 +49,69 @@ public class StaringWave : MonoBehaviour
                 if (audioSource != null && !audioSource.isPlaying)
                 {
                     StartCoroutine(PlayDelayedAudioCoroutine());
+                    StartCoroutine(SkillCastingOpen());
                 }
+            }
+        }
+    }
+
+    IEnumerator FillCircleOverTime()
+    {
+        float elapsedTime = 0f;
+        float startFillAmount = 0f;
+        float targetFillAmount = 1f;
+
+        while (elapsedTime < fillDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float currentFillAmount = Mathf.Lerp(startFillAmount, targetFillAmount, elapsedTime / fillDuration);
+            circleImage.fillAmount = currentFillAmount;
+
+            yield return null;
+        }
+
+        circleImage.fillAmount = targetFillAmount;
+
+        yield return new WaitForSeconds(0.1f);
+
+        if (!hasPlayedAudio1)
+        {
+
+            PlayAudio();
+            hasPlayedAudio1 = true;
+        }
+    }
+
+    private void PlayAudio()
+    {
+        if (audioSource != null)
+        {
+            audioSource.Play();
+        }
+    }
+
+    private IEnumerator SkillCastingOpen()
+    {
+        yield return null;
+
+        GameObject[] skillsLeft = GameObject.FindGameObjectsWithTag("SkillLeft");
+        GameObject[] skillsRight = GameObject.FindGameObjectsWithTag("SkillRight");
+
+        foreach (GameObject skillLeft in skillsLeft)
+        {
+            Animator animator = skillLeft.GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.SetTrigger("starting");
+            }
+        }
+
+        foreach (GameObject skillRight in skillsRight)
+        {
+            Animator animator = skillRight.GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.SetTrigger("starting");
             }
         }
     }
@@ -61,11 +129,14 @@ public class StaringWave : MonoBehaviour
 
         int fadeOutCount = 0;
         int totalFadeOutCount = 0;
-
-        foreach (StaringWave wave in staringWaves)
+        waveSkipArray = GameObject.FindGameObjectsWithTag("WaveSkip");
+        for (int i = 0; i < waveSkipArray.Length; i++)
         {
-            if (wave != null)
+            GameObject waveSkipObject = waveSkipArray[i].gameObject;
+            StaringWave wave = waveSkipArray[i].GetComponent<StaringWave>();
+            if (wave != null && waveSkipObject.name != "TimeSkip")
             {
+                gameSystem.CloseSkipWave();
                 if (wave.circleImage != null)
                 {
                     totalFadeOutCount++;
@@ -99,10 +170,13 @@ public class StaringWave : MonoBehaviour
     private IEnumerator DisableWaveEffectsAfterDelay()
     {
         yield return new WaitForSeconds(2f);
-
-        foreach (StaringWave wave in staringWaves)
+        waveSkipArray = GameObject.FindGameObjectsWithTag("WaveSkip");
+        for (int i = 0; i < waveSkipArray.Length; i++)
         {
-            if (wave != null)
+            GameObject waveSkipObject = waveSkipArray[i].gameObject;
+
+            StaringWave wave = waveSkipArray[i].GetComponent<StaringWave>();
+            if (wave != null && waveSkipObject.name != "TimeSkip")
             {
                 if (wave.circleImage != null)
                 {

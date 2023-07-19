@@ -29,5 +29,5 @@ public class ButtonTrigger : MonoBehaviour
         spriteRenderer.sprite = originalSprite;
         PlayerPrefs.SetInt("shouldApplyFade", 0);
         SceneManager.LoadScene(sceneNumber);
-    } 
+    }  
 }

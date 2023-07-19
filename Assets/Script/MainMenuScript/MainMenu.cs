@@ -18,6 +18,7 @@ public class MainMenu : MonoBehaviour
 
     void Update()
     {
+        //anyKeyDown
         if (Input.anyKeyDown && isClick == false)
         {
             isClick = true;
@@ -32,13 +33,20 @@ public class MainMenu : MonoBehaviour
 
     void ShowOptionsMenu()
     {
+        //Logo
         animator.enabled = true;
+        //Tat cai gameObject fadeButton hay an no di
         fadeButton.enabled = false;
+        //Tat cai gameObject fadeButton hay an no di
         fadeButton.gameObject.SetActive(false);
-
+        
+        //Tat cai mainText
         tmpText.StartAnimation();
+        //Tat cai SubText
         subText.StartAnimation();
+        //tat cai buttonPress
         buttonPress.StartAnimation();
+        
         StartCoroutine(HideGameObjectCoroutine());
     }
 

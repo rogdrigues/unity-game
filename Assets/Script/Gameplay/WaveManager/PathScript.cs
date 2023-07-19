@@ -117,6 +117,4 @@ public class PathScript : MonoBehaviour
             targetNumber += 1;
         }
     }
-
-
 }
