@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using JetBrains.Annotations;
 
 public class GameSystem : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class GameSystem : MonoBehaviour
     private Animator skipCloseLeft;
     private Animator skipCloseRight;
     private bool canSkipNow = false;
+    public int totalEnemies;
 
     void Start()
     {
@@ -39,7 +41,7 @@ public class GameSystem : MonoBehaviour
             GameOver();
         }
 
-        if (waveCurrent >= totalWaves)
+        if (waveCurrent >= totalWaves && totalEnemies == 0)
         {
             AllWavesCompleted();
         }
@@ -47,6 +49,16 @@ public class GameSystem : MonoBehaviour
         {
             CheckCurrentWave();
         }
+    }
+
+    public void EnemiesIncrease()
+    {
+        totalEnemies++;
+    }
+
+    public void EnemiesKilled()
+    {
+        totalEnemies--;
     }
 
     public void StaringSkipWave()
@@ -121,6 +133,7 @@ public class GameSystem : MonoBehaviour
 
     public void LoseLife(int amount)
     {
+        EnemiesKilled();
         liveValue -= amount;
         UpdateLivesText();
     }

@@ -78,6 +78,7 @@ public class EnemyStatus : MonoBehaviour
 
         if (health <= 0)
         {
+            gameSystem.EnemiesKilled();
             gameSystem.EarnGold(bounty);
             gameObject.tag = "Inactive";
             HPBarrageLeft.SetActive(false);

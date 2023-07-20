@@ -52,18 +52,13 @@ public class TowerAction : MonoBehaviour, IPointerClickHandler
         Vector3 newPosition = new Vector3(538f, 249.5f, objectTower.transform.localPosition.z);
         objectTower.transform.localPosition = newPosition;
 
-        //GameObject -> SpriteRendered -> Sprite = null -> Sprite
-        //GetComponent<SpriteRendered>().sprite = null
-        //GameObject -> Animator -> runTimeAnimationController -> Controller (sai) = null
-        //objectTower dang co Rotation z là 0 -> 90 -> 0 Quaternion.Euler
-        //Set Default for objecTower
         objectTower.GetComponent<SpriteRenderer>().sprite = null;
         objectTower.GetComponent<Animator>().runtimeAnimatorController = null;
         objectTower.GetComponent<Transform>().rotation = Quaternion.Euler(0f, 0f, 0f);
         //Set default for landTower
         landTower.GetComponent<SpriteRenderer>().sprite = landTowerDefault;
 
-        landTower.tag = "Empty"; //Gan tag thanh cong -> Tag có tên là empty ph?i t?n t?i trong danh sách tag
+        landTower.tag = "Empty"; 
         //Set default for solider
         foreach (GameObject solider in Soliders)
         {

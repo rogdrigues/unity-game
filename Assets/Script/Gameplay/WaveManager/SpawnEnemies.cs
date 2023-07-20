@@ -24,26 +24,31 @@ public class SpawnEnemies : MonoBehaviour
     public float hpBarUpperWaveVerticalOffset = 1.3f;
     public float hpBarDownWaveVerticalOffset = 1.22f;
     public GameObject Wave;
+    private GameSystem gameSystem;
 
     private void Awake()
     {
         instance = this;
     }
-
+    //M?t ph??ng th?c start s? ch? ch?y khi gameObject có ch?a filescript này ???c hi?n th? t?c là setActive(true)
     void Start()
     {
         StartCoroutine(SpawnWave(enemiesUpWave, numberOfEnemiesUpWave, spawnPointUp, true));
         StartCoroutine(SpawnWave(enemiesDownWave, numberOfEnemiesDownWave, spawnPointDown, false));
+        gameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
     }
 
     IEnumerator SpawnWave(GameObject[] enemies, int numberOfEnemies, GameObject spawnPoint, bool isUpperWave)
     {
         int spawnedEnemies = 0;
+        //Set ???ng d?n ?? nó t?o ? trong th? m?c nào
         GameObject enemiesParent = GameObject.Find("Canvas/Manager/Enemies");
+        //Th?i gian ch? ?? spam 1 k? ??ch
         float waveWaitingTime = isUpperWave ? waitingTime *1.25f : waitingTime * 1.5f;
 
         while (spawnedEnemies < numberOfEnemies)
         {
+            //Lu?ng ngh?
             yield return new WaitForSeconds(waveWaitingTime);
 
             for (int i = 0; i < enemiesPerSpawn; i++)
@@ -51,7 +56,9 @@ public class SpawnEnemies : MonoBehaviour
                 if (spawnedEnemies < numberOfEnemies && enemiesOnScreen < maxEnemiesOnWave)
                 {
                     GameObject enemyPrefab = enemies[Random.Range(0, enemies.Length)] as GameObject;
+                    //Copy gameObject c?a k? ??ch sau ?ó t?o ra b?n sao -> Nh? Copy Paste
                     GameObject newEnemy = PrefabUtility.InstantiatePrefab(enemyPrefab) as GameObject;
+
                     Vector3 newEnemyPos = new Vector3(spawnPoint.transform.position.x, spawnPoint.transform.position.y, 0f);
                     newEnemy.transform.SetParent(enemiesParent.transform);
                     
@@ -78,6 +85,7 @@ public class SpawnEnemies : MonoBehaviour
                     }
                     enemiesOnScreen++;
                     spawnedEnemies++;
+                    gameSystem.EnemiesIncrease();
                     newEnemy.transform.position = newEnemyPos;
                     newEnemy.transform.localPosition = newEnemyPos;
                 }
